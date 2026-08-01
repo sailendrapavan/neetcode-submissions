@@ -1,0 +1,13 @@
+class Solution {
+    HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+    public int[] twoSum(int[] nums, int target) {
+        for(int i = 0 ;i<nums.length;i++){
+            Integer index = map.get(target-nums[i]);
+            if(index!=null){
+              return new int[]{index,i};
+            }
+            map.put(nums[i],i);
+        }
+        return new int[2];
+    }
+}
