@@ -1,0 +1,51 @@
+class Solution {
+    public int jump(int[] nums) {
+      int n = nums.length;
+      int l =0;
+      int r=0;
+      int jumps = 0;
+      while(r<n-1){
+        int farthest = 0;
+        for(int i =l;i<=r;i++){
+           farthest = Math.max(farthest, i+ nums[i]);
+        }
+        l = r+1;
+        r = farthest;
+        jumps++;
+      }
+      return jumps;
+    }
+
+
+
+    public int jumpversiondp(int[] nums){
+        int dp[] = new int[nums.length];
+        Arrays.fill(dp,-1);
+        int result = recur(nums,0,dp);
+        if(result == Integer.MAX_VALUE){
+            return -1;
+        }
+        return result;
+    }
+
+    int recur(int[] nums, int index, int [] dp){
+        if(index>=nums.length-1){
+            return 0;
+        }
+        if(dp[index]!=-1){
+            return dp[index];
+        }
+        int result=Integer.MAX_VALUE;
+        for(int i =1;i<=nums[index];i++){
+            int steps = recur(nums, i+index,dp);
+            if(steps != Integer.MAX_VALUE) {
+                result = Math.min(result, steps+1);
+            }
+        }
+        dp[index] = (result==Integer.MAX_VALUE?Integer.MAX_VALUE:result);
+        return  dp[index];
+    }
+
+
+
+}
